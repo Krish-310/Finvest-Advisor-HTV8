@@ -6,6 +6,8 @@ The HTV8 project leverages the principles of cosine similarity search and the ba
 
 Project deployed at: https://finvestadvisor.streamlit.app/
 
+![screenshot](assets/Finvest.jpg)
+
 ## Introduction
 
 Advancements in the field of machine learning have paved the way for more accurate and personalized investment recommendations. The HTV8 project aims to harness these advances to deliver investment suggestions that align with individual user preferences and financial goals.
