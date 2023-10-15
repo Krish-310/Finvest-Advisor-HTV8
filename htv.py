@@ -1,33 +1,22 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import os
-import logging
-from dotenv import load_dotenv
-import cohere
-import torch
-import random
-from random import gauss
 
-# Logging
-logging.getLogger("complete").setLevel(logging.WARNING)
-
-# Load env variables
-load_dotenv()
-# Note: Cohere API key is no longer part of this project for now
+# Front-End of the Web App with Streamlit
 
 st.set_page_config(page_title="Investment Recommendation Engine", page_icon="📈", layout="wide")
+
 st.title('Investment Recommendation Engine')
 with st.sidebar:
     st.header('How to use our app')
     st.write("""
-Input your deomgraphic and financial information into the website. Click on 
+Input your deomgraphic and financial information into the site and click on 
 'Generate' to create recommendations for indices, stocks and bonds that you may
 profit from investing in.
 
-Important Note: We do not guarantee that any suggestions given will definitely 
-result in profit. Our app just provides suggestions as to where you may start 
-your research into which options may be profitable. The market is volatile and 
+Important Note: We do not guarantee that these recommendations ascertain profit. 
+Our app provides suggestions as to where you may start 
+your research into options that may be profitable. The market is volatile and 
 profitability cannot be determined with complete certainty.
 
 Disclaimer: Your data will remain anonymous and will stay within our app. Your
@@ -35,7 +24,9 @@ data may be used to expand our dataset so that we can make even more accurate
 predictions in the future.
 """)
 
-# Getting input from the user
+st.markdown("This is a Machine Learning model which gets trained on the data that it gets. Do not be completely reliant on the results it provides.")
+
+# Getting input from the user as data
 
 st.markdown("\n")
 
@@ -65,19 +56,17 @@ A lower risk typically implies lower returns, whereas a higher risk has the chan
 
 st.markdown("\n")
 
-def on_button_click():
-    st.write("Submission Complete!")
 
 button_clicked = st.button("Generate")
 
-if button_clicked:
-    on_button_click()
 
+st.markdown("\n")
 st.write("\n")
 
 # End of input from user
 
-# Processing User Input
+
+# Processing User Input (Backend Side of the project)
 
 if income == '< $53,359':
     user_income_num = 2
@@ -200,132 +189,14 @@ def front_end_return():
          [na[index_list[2]][0], na[index_list[2]][4] ]]
     return a
 
+# End of Backend for the project
 
 
-
-
-# # Set a random seed for reproducibility
-# random.seed(0)
-# torch.manual_seed(0)
-
- 
-# # Apply transformations to income, asset value, and debt value
-
-
-
-# # Display the first few records
-
-# # for i in range(100):
-
-# #     print(f"Person {i + 1}: {people_data[i]}")
-
- 
-
-# # You can access the data for each person using people_data[index]
-
-# # For example, to access the risk tolerance score of the first person:
-
-# # risk_tolerance_of_first_person = people_data[0]["Risk Tolerance"]
-
-# # people_df
-
-# fund_data = pd.read_csv(r'/content/sample_data/HV_8_Fund_Data.csv')
-
-# fund_data['hash values'] = range(1, len(fund_data) + 1)
-
-# # fund_data
-
-
-# # Convert the DataFrame to a string
-
-# fund_data_string = fund_data.to_string(index=False, header=False)
-
- 
-
-# # Display the resulting string
-
-# # print(fund_data_string)
-
-# # people_df_string = people_df.to_string(index=False, header=False)
-
-# # people_df_string
-
-# # !pip install cohere
-
- 
-
-# import cohere
-
-# co = cohere.Client(API_KEY)
-
-# text = people_df_string
-
-# lines = text.splitlines()
-
-# var_data= range(1, 100)
-
- 
-
-# import random 
-
-# data_mapped = []
-
-
-# for i in range(100):
-#     x = random.randint(1, 50)
-#     y = random.randint(1, 50)
-#     z = random.randint(1, 50)
-
-#     # Create a dictionary for the new row
-#     new_row = {
-#         'Person_ID': i,
-#         'Priority 1': x,
-#         'Priority 2': y,
-#         'Priority 3': z
-#     }
-
-#     # Append the new row to the list
-
-#     data_mapped.append(new_row)
-
- 
-
-# # Create a DataFrame from the list of dictionaries
-
-# data_mapped_df = pd.DataFrame(data_mapped)
-
- 
-
-# # Print the DataFrame to see the result
-
-# # print(data_mapped_df)
-
- 
-
-# # # Display each line
-
-# # # for line in lines:
-
-# #     # print(line)
-
-# # response = co.generate(
-
-# #   prompt = " Suppose you are a pesron having Income-Score          Credit-Score Asset-Value Debt-Value Risk-Tolerance ID as " + line + " respectively, provide me three row numbers of the assets  in terms of priority from " + fund_data_string + " in which you are likely to invest in"
-
-# #       # prompt= "using the"+people_df_string+"build me another dataset where each value in"+people_df_string +"rates each value of"+fund_data_string+"based on how likely each person in"+people_df_string+"to buy the given investment option in"+fund_data_string+"the ratings should be from 1-5 where 1 is least likely to buy and 5 is most likely to buy"
-
-# # )
-
-# # print(response[0])
-
-
-
-
-
-
-# Producing Output for the user 
+# Front-End: Producing Output for the user 
 
 st.header(f'Potential Recommendations to Invest in:')
+
+st.markdown("\n")
 
 if button_clicked:
     investments = front_end_return()
@@ -335,6 +206,6 @@ if button_clicked:
     st.write(investments[2][0] + " ---- " + investments[2][1])
 else:
     st.write("\n")
-    st.write("Fill in your data first!")
+    st.write("Fill in your data first and then click generate!")
 
 
