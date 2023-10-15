@@ -167,7 +167,7 @@ def cosine():
     cos = []
     len_b = vector_length(person_data()) # number
     nested = nested_array_converted() # numpy list
-    for i in dot.size():
+    for i in range(dot.size):
         len_a =  vector_length(nested[i])
         cos_theta = dot[i]/(len_b * len_a)
         cos.append(cos_theta)
@@ -179,30 +179,27 @@ def cosine():
 def max_cosine():
     cosine_array = cosine()
     a = cosine_array.max()
-    for i in range(cosine_array):
+    for i in range(cosine_array.size):
         if cosine_array[i] == a:
             return i
 
 def get_person_choice():
-      df = pd.read_csv('data_mapped.csv')    # ERROR: WE DON'T HAVE A CHOICE.CSV FILE
+      df = pd.read_csv('data_mapped.csv')
+      numpy_array = df.to_numpy()
       index= max_cosine()
-      df_data= df[index][1:]
+      df_data= numpy_array[index][1:]
       return df_data
     
 def front_end_return():
     df = pd.read_csv('Funds.csv')
+    na = df.to_numpy()
     index_list = get_person_choice()
     print(index_list[0], index_list[1], index_list[2])
-    a = [[df[index_list[0] + 1][0], df[index_list[0] + 1][4] ],
-         [df[index_list[1] + 1][0], df[index_list[1] + 1][4] ],
-         [df[index_list[2] + 1][0], df[index_list[2] + 1][4] ]]
+    a = [[na[index_list[0]][0], na[index_list[0]][4] ],
+         [na[index_list[1]][0], na[index_list[1]][4] ],
+         [na[index_list[2]][0], na[index_list[2]][4] ]]
     return a
 
-def wtf():
-    a = front_end_return()
-    print(a[0][0], a[0][1], a[1][0], a[1][1], a[2][0], a[2][1])
-
-wtf()
 
 
 
@@ -330,16 +327,14 @@ wtf()
 
 st.header(f'Potential Recommendations to Invest in:')
 
-
 if button_clicked:
-    st.write("information")
+    investments = front_end_return()
+    st.write("\n")
+    st.write(investments[0][0] + " ---- " + investments[0][1])
+    st.write(investments[1][0] + " ---- " + investments[1][1])
+    st.write(investments[2][0] + " ---- " + investments[2][1])
+else:
+    st.write("\n")
+    st.write("Fill in your data first!")
 
-result = """
-US Dollar Index Futures - Dec 23 (DXZ3) ---- https://ca.investing.com/currencies/us-dollar-index \n
-Tesla Inc (TSLA) ---- https://ca.investing.com/equities/tesla-motors \n
-United States 2-Year Bond Yield ---- https://ca.investing.com/rates-bonds/u.s.-2-year-bond-yield \n
-"""
-
-
-st.write(result)
 
