@@ -89,7 +89,7 @@ def person_data():
 
 def nested_array_converted():
     # Load your CSV file, replace 'your_data.csv' with the actual file path
-    df = pd.read_csv('People.csv')
+    df = pd.read_csv('person_data.csv')
     # Extract the data columns (excluding the name column)
     data_columns = df.columns[1:]  # The first column is the name
     # Create a list of lists for each person's data
@@ -134,111 +134,148 @@ def max_cosine():
             return i
 
 def get_person_choice():
-      df = pd.read_csv('Choice.csv')
+      df = pd.read_csv('choice.csv')    # ERROR: WE DON'T HAVE A CHOICE.CSV FILE
       index= max_cosine()
       df_data= df[index][1:]
       return df_data
     
 def front_end_return():
     df = pd.read_csv('Funds.csv')
+    index_list = get_person_choice()
+    print(index_list[0], index_list[1], index_list[2])
+    a = [[df[index_list[0] + 1][0], df[index_list[0] + 1][4] ],
+         [df[index_list[1] + 1][0], df[index_list[1] + 1][4] ],
+         [df[index_list[2] + 1][0], df[index_list[2] + 1][4] ]]
+    return a
+
+def wtf():
+    a = front_end_return()
+    print(a[0][0], a[0][1], a[1][0], a[1][1], a[2][0], a[2][1])
+
+wtf()
 
 
 
 
-
-
-# Set a random seed for reproducibility
-random.seed(0)
-torch.manual_seed(0)
+# # Set a random seed for reproducibility
+# random.seed(0)
+# torch.manual_seed(0)
 
  
-# Apply transformations to income, asset value, and debt value
+# # Apply transformations to income, asset value, and debt value
 
 
 
-# Display the first few records
+# # Display the first few records
+
+# # for i in range(100):
+
+# #     print(f"Person {i + 1}: {people_data[i]}")
+
+ 
+
+# # You can access the data for each person using people_data[index]
+
+# # For example, to access the risk tolerance score of the first person:
+
+# # risk_tolerance_of_first_person = people_data[0]["Risk Tolerance"]
+
+# # people_df
+
+# fund_data = pd.read_csv(r'/content/sample_data/HV_8_Fund_Data.csv')
+
+# fund_data['hash values'] = range(1, len(fund_data) + 1)
+
+# # fund_data
+
+
+# # Convert the DataFrame to a string
+
+# fund_data_string = fund_data.to_string(index=False, header=False)
+
+ 
+
+# # Display the resulting string
+
+# # print(fund_data_string)
+
+# # people_df_string = people_df.to_string(index=False, header=False)
+
+# # people_df_string
+
+# # !pip install cohere
+
+ 
+
+# import cohere
+
+# co = cohere.Client(API_KEY)
+
+# text = people_df_string
+
+# lines = text.splitlines()
+
+# var_data= range(1, 100)
+
+ 
+
+# import random 
+
+# data_mapped = []
+
 
 # for i in range(100):
+#     x = random.randint(1, 50)
+#     y = random.randint(1, 50)
+#     z = random.randint(1, 50)
 
-#     print(f"Person {i + 1}: {people_data[i]}")
+#     # Create a dictionary for the new row
+#     new_row = {
+#         'Person_ID': i,
+#         'Priority 1': x,
+#         'Priority 2': y,
+#         'Priority 3': z
+#     }
 
- 
+#     # Append the new row to the list
 
-# You can access the data for each person using people_data[index]
-
-# For example, to access the risk tolerance score of the first person:
-
-# risk_tolerance_of_first_person = people_data[0]["Risk Tolerance"]
-
-# people_df
-
-fund_data = pd.read_csv(r'/content/sample_data/HV_8_Fund_Data.csv')
-
-fund_data['hash values'] = range(1, len(fund_data) + 1)
-
-# fund_data
-
-
-# Convert the DataFrame to a string
-
-fund_data_string = fund_data.to_string(index=False, header=False)
+#     data_mapped.append(new_row)
 
  
 
-# Display the resulting string
+# # Create a DataFrame from the list of dictionaries
 
-# print(fund_data_string)
-
-# people_df_string = people_df.to_string(index=False, header=False)
-
-# people_df_string
-
-# !pip install cohere
+# data_mapped_df = pd.DataFrame(data_mapped)
 
  
 
-import cohere
+# # Print the DataFrame to see the result
 
-co = cohere.Client(API_KEY)
-
-text = people_df_string
-
-lines = text.splitlines()
-import random 
-data_mapped = []
-for i in range(100):
-    x = random.randint(1, 50)
-    y = random.randint(1, 50)
-    z = random.randint(1, 50)
-
-    # Create a dictionary for the new row
-    new_row = {
-        'Person_ID': i,
-        'Priority 1': x,
-        'Priority 2': y,
-        'Priority 3': z
-    }
-
-    # Append the new row to the list
-
-    data_mapped.append(new_row)
+# # print(data_mapped_df)
 
  
 
-# Create a DataFrame from the list of dictionaries
+# # # Display each line
 
-data_mapped_df = pd.DataFrame(data_mapped)
+# # # for line in lines:
 
-# Print the DataFrame to see the result
-# print(data_mapped_df)
-# # Display each line
-# # for line in lines:
-#     # print(line)
-# response = co.generate(
-#   prompt = " Suppose you are a pesron having Income-Score          Credit-Score Asset-Value Debt-Value Risk-Tolerance ID as " + line + " respectively, provide me three row numbers of the assets  in terms of priority from " + fund_data_string + " in which you are likely to invest in"
-#       # prompt= "using the"+people_df_string+"build me another dataset where each value in"+people_df_string +"rates each value of"+fund_data_string+"based on how likely each person in"+people_df_string+"to buy the given investment option in"+fund_data_string+"the ratings should be from 1-5 where 1 is least likely to buy and 5 is most likely to buy"
-# )
-# print(response[0])
+# #     # print(line)
+
+# # response = co.generate(
+
+# #   prompt = " Suppose you are a pesron having Income-Score          Credit-Score Asset-Value Debt-Value Risk-Tolerance ID as " + line + " respectively, provide me three row numbers of the assets  in terms of priority from " + fund_data_string + " in which you are likely to invest in"
+
+# #       # prompt= "using the"+people_df_string+"build me another dataset where each value in"+people_df_string +"rates each value of"+fund_data_string+"based on how likely each person in"+people_df_string+"to buy the given investment option in"+fund_data_string+"the ratings should be from 1-5 where 1 is least likely to buy and 5 is most likely to buy"
+
+# # )
+
+# # print(response[0])
+
+
+
+
+
+
 # Producing Output for the user 
 
 st.header(f'Potential Recommendations to Invest in:')
