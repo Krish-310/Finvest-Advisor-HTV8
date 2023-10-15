@@ -4,10 +4,11 @@ import numpy as np
 
 # Front-End of the Web App with Streamlit
 
-st.set_page_config(page_title="Investment Recommendation Engine", page_icon="📈", layout="wide")
+st.set_page_config(page_title="Finvest Advisor", page_icon="📈", layout="wide")
 
 st.title('Investment Recommendation Engine')
 with st.sidebar:
+    st.title('Finvest Advisor ')
     st.header('How to use our app')
     st.write("""
 Input your deomgraphic and financial information into the site and click on 
