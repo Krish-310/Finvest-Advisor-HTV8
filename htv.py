@@ -57,7 +57,7 @@ credit_score = st.slider('What is your credit score', 300, 850, 700)
 
 st.write("\n")
 
-risk = st.selectbox('Select your Risk Tolerance', ['Low', 'Low to Medium', 'Medium', 'Medium to High'])
+risk = st.selectbox('Select your Risk Tolerance', ['Low', 'Low to Medium', 'Medium', 'Medium to High', 'High'])
 st.write("""
 Note: Risk Tolerance refers to the risk that you are willing to take when you make your investment.
 A lower risk typically implies lower returns, whereas a higher risk has the chance to yield higher returns.
@@ -79,11 +79,61 @@ st.write("\n")
 
 # Processing User Input
 
+if income == '< $53,359':
+    user_income_num = 2
+elif income == '$53,359 - $106,717':
+    user_income_num = 3
+elif income == '$106,717 - $165,430':
+    user_income_num = 4
+elif income == '$165,430 - $235,675':
+    user_income_num = 5
+else:
+    user_income_num = 6
+
+if risk == 'Low':
+    risk_num = 1
+elif risk == 'Low to Medium':
+    risk_num = 1.5
+elif risk == 'Medium':
+    risk_num = 2
+elif risk == 'Medium to High':
+    risk_num = 2.5
+elif risk == 'High':
+    risk_num = 3
+
+if asset == '<$100k':
+    asset_num = 100000
+elif asset == '<$200k':
+    asset_num = 200000
+elif asset == '<$400k':
+    asset_num = 400000
+elif asset == '<$600k':
+    asset_num = 600000
+elif asset == '<$800k':
+    asset_num = 800000
+elif asset == '<$1M':
+    asset_num = 1000000
+elif asset == '>$1M':
+    asset_num = 1100000
+
+if debt == '$0k':
+    debt_num = 0
+elif debt == '<$20k':
+    debt_num = 20000
+elif debt == '<$50k':
+    debt_num = 50000
+elif debt == '<$100k':
+    debt_num = 100000
+elif debt == '<$200k':
+    debt_num = 200000
+elif debt == '>$200k':
+    debt_num = 210000
+
 def vector_length(vector):
     length = np.linalg.norm(vector)
     return length
 def person_data():
-    user_data = [age, income, asset, debt, credit_score, risk]
+    user_data = [age, user_income_num, credit_score, asset_num, debt_num, risk_num]
     user_data_np = np.array(user_data)
     return user_data_np
 
@@ -91,13 +141,13 @@ def nested_array_converted():
     # Load your CSV file, replace 'your_data.csv' with the actual file path
     df = pd.read_csv('person_data.csv')
     # Extract the data columns (excluding the name column)
-    data_columns = df.columns[1:]  # The first column is the name
+    data_columns = df.columns[0:6]  # The first column is the name
     # Create a list of lists for each person's data
     person_data_list = []
     for _, row in df.iterrows():
         person_data = row[data_columns].tolist()
         person_data_list.append(person_data)
-    personal_data_list_np = np.array(personal_data_list)
+    personal_data_list_np = np.array(person_data_list)
     return personal_data_list_np
 
 
@@ -134,7 +184,7 @@ def max_cosine():
             return i
 
 def get_person_choice():
-      df = pd.read_csv('choice.csv')    # ERROR: WE DON'T HAVE A CHOICE.CSV FILE
+      df = pd.read_csv('data_mapped.csv')    # ERROR: WE DON'T HAVE A CHOICE.CSV FILE
       index= max_cosine()
       df_data= df[index][1:]
       return df_data
