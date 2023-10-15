@@ -8,13 +8,10 @@ import cohere
 
 # Logging
 logging.getLogger("complete").setLevel(logging.WARNING)
+
 # Load env variables
 load_dotenv()
-
-#co = cohere.Client(os.getenv("COHERE_API_KEY"))
-
-
-
+# Note: Cohere API key is no longer part of this project for now
 
 st.set_page_config(page_title="Investment Recommendation Engine", page_icon="📈", layout="wide")
 st.title('Investment Recommendation Engine')
@@ -34,6 +31,8 @@ Disclaimer: Your data will remain anonymous and will stay within our app. Your
 data may be used to expand our dataset so that we can make even more accurate
 predictions in the future.
 """)
+
+# Getting input from the user
 
 st.markdown("\n")
 
@@ -56,7 +55,10 @@ credit_score = st.slider('What is your credit score', 300, 850, 700)
 st.write("\n")
 
 risk = st.selectbox('Select your Risk Tolerance', ['Low', 'Low to Medium', 'Medium', 'Medium to High'])
-st.write("Note: ")
+st.write("""
+Note: Risk Tolerance refers to the risk that you are willing to take when you make your investment.
+A lower risk typically implies lower returns, whereas a higher risk has the chance to yield higher returns.
+""")
 
 st.markdown("\n")
 
@@ -70,10 +72,68 @@ if button_clicked:
 
 st.write("\n")
 
+# End of input from user
+
+# Processing User Input
+
+def vector_length(vector):
+    length = np.linalg.norm(vector)
+    return length
+def person_data():
+    user_data = [age, income, asset, debt, credit_score, risk]
+    return user_data
+
+def nested_array_converted():
+    # Load your CSV file, replace 'your_data.csv' with the actual file path
+    df = pd.read_csv('your_data.csv')
+    # Extract the data columns (excluding the name column)
+    data_columns = df.columns[1:]  # The first column is the name
+    # Create a list of lists for each person's data
+    person_data_list = []
+    for _, row in df.iterrows():
+        person_data = row[data_columns].tolist()
+        person_data_list.append(person_data)
+    personal_data_list_np = np.array(personal_data_list)
+    return personal_data_list_np
+
+
+def dot_product():
+    a = nested_array_converted()
+    dot = []
+    b = personal_data() # numpy list
+    for i in range(a.shape[0]): # Number of rows in the 2D array
+        p = a[i] @ b
+        dot.append(p)
+    dot_np = np.array(dot)
+    return dot_np
+
+
+def cosine():
+    dot = dot_product() # numpy list
+    cos = []
+    len_b = vector_length(person_data()) # number
+    nested = nested_array_converted() # numpy list
+    for i in dot.size():
+        len_a =  vector_length(nested[i])
+        cos_theta = dot[i]/(len_b * len_a)
+        cos.append(cos_theta)
+    cos_np = np.array(cos)
+    return cos_np
+
+
+# Now, we find the max in the cos array:
+def max_cosine():
+    cosine_array = cosine()
+    return cosine_array.max()
+
+
+
+
+
+# Producing Output for the user 
+
 st.header(f'Potential Recommendations to Invest in:')
 
-
-# Feed data into model and return 3 investment options from the database
 
 if button_clicked:
     st.write("information")
