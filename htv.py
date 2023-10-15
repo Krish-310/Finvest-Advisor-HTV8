@@ -1,9 +1,23 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import os
+import logging
+from dotenv import load_dotenv
+import cohere
 
-st.set_page_config(page_title="Investment Rec Engine", page_icon="📈", layout="wide")
-st.title('Investment Rec Engine')
+# Logging
+logging.getLogger("complete").setLevel(logging.WARNING)
+# Load env variables
+load_dotenv()
+
+#co = cohere.Client(os.getenv("COHERE_API_KEY"))
+
+
+
+
+st.set_page_config(page_title="Investment Recommendation Engine", page_icon="📈", layout="wide")
+st.title('Investment Recommendation Engine')
 with st.sidebar:
     st.header('How to use our app')
     st.write("""
@@ -21,41 +35,55 @@ data may be used to expand our dataset so that we can make even more accurate
 predictions in the future.
 """)
 
+st.markdown("\n")
+
+st.header(f'Please input your data as follows:')
+
 age = st.slider('Select your age', 0, 100, 25)
-if st.button('Submit'):
-    st.success(f"You selected age: {age}")
+
+st.write("\n")
+
+income = st.selectbox('Select your Income Group', ['< $53,359', '$53,359 - $106,717', '$106,717 - $165,430', '$165,430 - $235,675', '> $235,675'])
+
+asset = st.selectbox('Select your Asset Value', ['<$100k', '<$200k', '<$400k', '<$600k', '<$800k', '<$1M', '>$1M'])
+
+debt = st.selectbox('Select your Approximate Debt', ['$0k', '<$20k','<$50k', '<$100k', '<$200k', '>$200k'])
+
+st.write("\n")
+
+credit_score = st.slider('What is your credit score', 300, 850, 700)
+
+st.write("\n")
+
+risk = st.selectbox('Select your Risk Tolerance', ['Low', 'Low to Medium', 'Medium', 'Medium to High'])
+st.write("Note: ")
+
+st.markdown("\n")
+
+def on_button_click():
+    st.write("Submission Complete!")
+
+button_clicked = st.button("Generate")
+
+if button_clicked:
+    on_button_click()
+
+st.write("\n")
+
+st.header(f'Potential Recommendations to Invest in:')
 
 
-text = st.text_input('Enter your Income:', '')
+# Feed data into model and return 3 investment options from the database
 
-option = st.selectbox('Select your Income Group', ['<$40k', '$40k - $70k', '$70k - $100k', '$100k - $150k', '>$150k'])
+if button_clicked:
+    st.write("information")
 
-option = st.selectbox('Select your Asset Value', ['<$40k', '$40k - $70k', '$70k - $100k', '$100k - $150k', '>$150k'])
+result = """
+US Dollar Index Futures - Dec 23 (DXZ3) ---- https://ca.investing.com/currencies/us-dollar-index \n
+Tesla Inc (TSLA) ---- https://ca.investing.com/equities/tesla-motors \n
+United States 2-Year Bond Yield ---- https://ca.investing.com/rates-bonds/u.s.-2-year-bond-yield \n
+"""
 
-option = st.selectbox('Select your Debt', ['$0k', '<$20k','<$50k', '<$100k'])
 
-option = st.selectbox('Select your Risk Tolerance', ['<$40k', '40k - 70k', '70k - 100k', '100k - 150k', '>150k'])
-
-text = st.text_input('Enter your Assets:', '')
-text = st.text_input('Enter your Debt:', '')
-text = st.text_input('Enter your Risk Tolerance:', '')
-
-st.write(f'Output:')
-
-@st.cache_data
-def expensive_computation():
-    # Run the model for a given input
-    return 0
-
-result = expensive_computation()
 st.write(result)
-
-
-option = st.selectbox('Select an option', ['Option 1', 'Option 2'])
-st.write(f'You selected: {option}')
-
-if option == 'Option 1':
-    st.info('You chose Option 1.')
-elif option == 'Option 2':
-    st.info('You chose Option 2.')
 
