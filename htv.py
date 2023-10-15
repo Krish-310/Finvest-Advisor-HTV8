@@ -204,16 +204,8 @@ co = cohere.Client(API_KEY)
 text = people_df_string
 
 lines = text.splitlines()
-
-var_data= range(1, 100)
-
- 
-
 import random 
-
 data_mapped = []
-
-
 for i in range(100):
     x = random.randint(1, 50)
     y = random.randint(1, 50)
@@ -237,35 +229,16 @@ for i in range(100):
 
 data_mapped_df = pd.DataFrame(data_mapped)
 
- 
-
 # Print the DataFrame to see the result
-
 # print(data_mapped_df)
-
- 
-
 # # Display each line
-
 # # for line in lines:
-
 #     # print(line)
-
 # response = co.generate(
-
 #   prompt = " Suppose you are a pesron having Income-Score          Credit-Score Asset-Value Debt-Value Risk-Tolerance ID as " + line + " respectively, provide me three row numbers of the assets  in terms of priority from " + fund_data_string + " in which you are likely to invest in"
-
 #       # prompt= "using the"+people_df_string+"build me another dataset where each value in"+people_df_string +"rates each value of"+fund_data_string+"based on how likely each person in"+people_df_string+"to buy the given investment option in"+fund_data_string+"the ratings should be from 1-5 where 1 is least likely to buy and 5 is most likely to buy"
-
 # )
-
 # print(response[0])
-
-
-
-
-
-
 # Producing Output for the user 
 
 st.header(f'Potential Recommendations to Invest in:')
