@@ -135,50 +135,10 @@ def max_cosine():
 random.seed(0)
 torch.manual_seed(0)
 
-# Create empty lists to store the data
-people_data = []
-
-# Generate data for 100 people
-for _ in range(100):
-    income = random.randint(30000, 200000)  # Income between $30,000 and $120,000\
-    income_num=0
-    if income <40000:
-      income_num =1
-    elif income< 53359:
-      income_num=2
-    elif income <106717:
-      income_num=3
-    elif income <165430:
-      income_num = 4
-    elif income <235675:
-      income_num =5
-    else:
-      income_num =6
-    credit_score = random.randint(300, 900)  # Credit score between 400 and 850
-    asset_value = random.uniform(10000, 500000)  # Asset value between $10,000 and $500,000
-    debt_value = random.uniform(0, asset_value)  # Debt value is less than or equal to asset value
-    risk_tolerance = random.choice([1,1.5,2,2.5,3])  # Risk tolerance level (1, 2, 3)
-
- 
-    # Create a dictionary representing a person's data
-    person = {
-        "Income Score": income_num,
-        "Credit Score": credit_score,
-        "Asset Value": asset_value,
-        "Debt Value": debt_value,
-        "Risk Tolerance": risk_tolerance
-    }
-
-    people_data.append(person)
-
  
 # Apply transformations to income, asset value, and debt value
 
-# making pandas file
-people_df = pd.DataFrame(people_data)
-people_df['ID'] = range(1, len(people_df) + 1)
-people_df.head(100)
-pd.set_option('display.max_rows', None)
+
 
 # Display the first few records
 
@@ -213,7 +173,7 @@ fund_data_string = fund_data.to_string(index=False, header=False)
 
 # print(fund_data_string)
 
-people_df_string = people_df.to_string(index=False, header=False)
+# people_df_string = people_df.to_string(index=False, header=False)
 
 # people_df_string
 
