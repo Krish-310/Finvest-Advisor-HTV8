@@ -84,11 +84,12 @@ def vector_length(vector):
     return length
 def person_data():
     user_data = [age, income, asset, debt, credit_score, risk]
-    return user_data
+    user_data_np = np.array(user_data)
+    return user_data_np
 
 def nested_array_converted():
     # Load your CSV file, replace 'your_data.csv' with the actual file path
-    df = pd.read_csv('your_data.csv')
+    df = pd.read_csv('People.csv')
     # Extract the data columns (excluding the name column)
     data_columns = df.columns[1:]  # The first column is the name
     # Create a list of lists for each person's data
@@ -103,7 +104,7 @@ def nested_array_converted():
 def dot_product():
     a = nested_array_converted()
     dot = []
-    b = personal_data() # numpy list
+    b = person_data() # numpy list
     for i in range(a.shape[0]): # Number of rows in the 2D array
         p = a[i] @ b
         dot.append(p)
@@ -127,7 +128,22 @@ def cosine():
 # Now, we find the max in the cos array:
 def max_cosine():
     cosine_array = cosine()
-    return cosine_array.max()
+    a = cosine_array.max()
+    for i in range(cosine_array):
+        if cosine_array[i] == a:
+            return i
+
+def get_person_choice():
+      df = pd.read_csv('Choice.csv')
+      index= max_cosine()
+      df_data= df[index][1:]
+      return df_data
+    
+def front_end_return():
+    df = pd.read_csv('Funds.csv')
+
+
+
 
 
 
