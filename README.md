@@ -4,6 +4,8 @@
 
 The HTV8 project leverages the principles of cosine similarity search and the basics of machine learning to create an algorithm that provides investment recommendations for mutual funds and bonds to users. While recommendation systems can be incredibly complex, utilizing deep learning techniques [1,2], they can also be simple and effective when based on the similarity between items. In this project, we employ cosine similarity to calculate the similarity between investment options.
 
+Project deployed at: https://finvestadvisor.streamlit.app/
+
 ## Introduction
 
 Advancements in the field of machine learning have paved the way for more accurate and personalized investment recommendations. The HTV8 project aims to harness these advances to deliver investment suggestions that align with individual user preferences and financial goals.
